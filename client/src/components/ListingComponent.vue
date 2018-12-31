@@ -1,6 +1,7 @@
 <template>
     <div class="listing">
-        <h6>{{entry.title}}</h6>
+        <h4><a :href="entry.link">{{entry.title}}</a></h4>
+        <span class="price"><b>Price: {{entry.price}}</b></span>
     </div>
 </template>
 
