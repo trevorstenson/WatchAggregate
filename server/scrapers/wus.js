@@ -34,7 +34,6 @@ function scrape() {
                         })
                         .catch((error) => console.log(error));
                 });
-                //db.getDB().close();
             })
             .catch(function (error) {
                 console.log(error);
