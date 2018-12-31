@@ -8,19 +8,9 @@
 <script>
     import HelloWorld from './components/HelloWorld.vue'
     import ListingComponent from './components/ListingComponent.vue'
+    import axios from 'axios'
 
-    const listings = [
-        {
-            title: 'hamilton',
-            link: 'reddit',
-            price: '$230'
-        },
-        {
-            title: 'oris',
-            link: 'wus',
-            price: '$650'
-        }
-    ];
+    const API_URL = 'http://localhost:3000/listings/';
 
     export default {
         name: 'app',
@@ -29,8 +19,24 @@
         },
         data() {
             return {
-                listings
+                listings: []
             }
+        },
+        methods: {
+            getListings() {
+                axios
+                    .get(API_URL)
+                    .then((response) => {
+                        this.listings = response.data;
+                    })
+                    .catch((error) => {
+                        throw error;
+                    })
+
+            }
+        },
+        mounted() {
+            this.getListings();
         }
     }
 </script>

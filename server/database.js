@@ -8,7 +8,7 @@ module.exports = {
 
     addListing: function (obj) {
         if (_db) {
-            _db.db("watches1").collection('posts').updateOne(
+            _db.collection('posts').updateOne(
                 {title: obj.title},
                 {$set: {'link': obj.link, 'price': obj.price}},
                 {upsert: true})
@@ -22,13 +22,12 @@ module.exports = {
         }
 
         MongoClient.connect(url, function (err, db) {
-            _db = db;
+            _db = db.db("watches1");
             return callback(null, _db);
         });
     },
 
     getDB: function () {
-        //assert.ok(_db, 'Need to initialize db.');
         return _db;
     }
 };
