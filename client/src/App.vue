@@ -1,11 +1,16 @@
 <template>
     <div id="app">
-        <ListingComponent v-for="listing in listings.reverse()" :entry="listing"/>
+        <div id="listings">
+            <ListingComponent v-for="listing in paginatedData" :entry="listing"/>
+        </div>
+        <div id="buttonBar">
+            <button v-on:click="prevPage">Prev Page</button>
+            <button v-on:click="nextPage">Next Page</button>
+        </div>
     </div>
 </template>
 
 <script>
-    import HelloWorld from './components/HelloWorld.vue'
     import ListingComponent from './components/ListingComponent.vue'
     import axios from 'axios'
 
@@ -18,10 +23,32 @@
         },
         data() {
             return {
-                listings: []
+                listings: [],
+                pageNumber: 0,
+                size: 22
+            }
+        },
+        computed: {
+            paginatedData() {
+                const start = this.pageNumber * this.size,
+                    end = start + this.size;
+                return this.listings.reverse().slice(start, end);
             }
         },
         methods: {
+            nextPage() {
+                this.pageNumber++;
+                console.log(this.pageNumber);
+            },
+            prevPage() {
+                this.pageNumber--;
+                console.log(this.pageNumber);
+            },
+            pageCount() {
+                let l = this.listings.length,
+                    s = this.size;
+                return Math.ceil(l/s);
+            },
             getListings() {
                 axios
                     .get(API_URL)
