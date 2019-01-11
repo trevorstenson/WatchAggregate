@@ -7,7 +7,10 @@
 
 <script>
     export default {
-        name: "ButtonBar"
+        name: "ButtonBar",
+        props: {
+            currentPage: Number
+        }
     }
 </script>
 

@@ -5,6 +5,7 @@
         </div>
         <div id="buttonBar">
             <button v-on:click="prevPage">Prev Page</button>
+            <span id="current">{{pageNumber}}</span>
             <button v-on:click="nextPage">Next Page</button>
         </div>
     </div>
@@ -24,8 +25,8 @@
         data() {
             return {
                 listings: [],
-                pageNumber: 0,
-                size: 22
+                pageNumber: 1,
+                size: 30
             }
         },
         computed: {
@@ -41,7 +42,9 @@
                 console.log(this.pageNumber);
             },
             prevPage() {
-                this.pageNumber--;
+                if (this.pageNumber > 1) {
+                    this.pageNumber--;
+                }
                 console.log(this.pageNumber);
             },
             pageCount() {
@@ -74,6 +77,24 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #2c3e50;
-        background-color: darkslateblue;
+        background-color: lightgray;
+    }
+
+    #buttonBar {
+        background-color: dimgray;
+    }
+    
+    button {
+        text-decoration: none;
+        text-align: center;
+        padding: 10px 20px;
+        border: none;
+        color: black;
+        background-color: dimgray;
+    }
+
+    body, html {
+        margin: 0;
+        padding: 0;
     }
 </style>

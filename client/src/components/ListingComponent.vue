@@ -16,13 +16,16 @@
 
 <style scoped>
     .listing {
-        background-color: lightslategray;
+
         width: 75%;
         overflow: auto;
-        border-bottom: 2px solid aliceblue;
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+        border-left: 2px solid gray;
+        border-right: 2px solid gray;
         padding-bottom: 2px;
         padding-top: 2px;
-        font-size: 21px;
+        font-size: 12px;
     }
 
     .title {
@@ -35,7 +38,7 @@
         display: inline;
         float: right;
         margin-right: 15px;
-        color: greenyellow;
+        color: darkblue;
     }
 
     a:link {
