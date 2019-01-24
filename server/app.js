@@ -26,17 +26,17 @@ app.get('/listings', function (req, res) {
     db.getDB().collection('posts').find({}).toArray(function (err, result) {
         if (err) throw err;
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(result));
+        res.send(result);
     })
 });
 
 app.post('/listings', function (req, res) {
-    var query = {title: {$regex: req.body.title, $options: "$i"}};
-    db.getDB().collection('posts').find(query).toArray(function (err, result) {
-        if (err) throw err;
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(result));
-    })
+        var query = {title: {$regex: req.body.title, $options: "$i"}};
+        db.getDB().collection('posts').find(query).toArray(function (err, result) {
+            if (err) throw err;
+            res.setHeader('Content-Type', 'application/json');
+            res.send(result);
+        })
 });
 
 app.listen(3000, function () {
