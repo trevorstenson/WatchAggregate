@@ -3,6 +3,7 @@ import App from './App.vue'
 
 Vue.config.productionTip = false;
 
+//create new Vue instance
 new Vue({
     data: {
         listings: []
