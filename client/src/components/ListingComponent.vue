@@ -15,8 +15,8 @@
 </script>
 
 <style scoped>
-    .listing {
 
+    .listing {
         width: 75%;
         overflow: auto;
         border-top: 1px solid gray;

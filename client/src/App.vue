@@ -1,7 +1,10 @@
 <template>
     <div id="app">
-        <div id="listings">
-            <ListingComponent v-for="listing in paginatedData" :entry="listing"/>
+        <TopBar/>
+        <div id="mainSection">
+            <div id="listings">
+                <ListingComponent id="mainList" v-for="listing in paginatedData" :entry="listing"/>
+            </div>
         </div>
         <div id="buttonBar">
             <button v-on:click="prevPage">Prev Page</button>
@@ -12,14 +15,18 @@
 </template>
 
 <script>
+    import TopBar from './components/TopBar.vue'
     import ListingComponent from './components/ListingComponent.vue'
     import axios from 'axios'
+
+    import { eventBus } from "./main"
 
     const API_URL = 'http://localhost:3000/listings/';
 
     export default {
         name: 'app',
         components: {
+            TopBar,
             ListingComponent
         },
         data() {
@@ -61,11 +68,24 @@
                     .catch((error) => {
                         throw error;
                     })
-
             }
         },
         mounted() {
             this.getListings();
+        },
+        created() {
+            eventBus.$on('newSearch', (searchTerm) => {
+                axios
+                    .post(API_URL, {
+                        title: searchTerm
+                    })
+                    .then((response) => {
+                        this.listings = response.data;
+                    })
+                    .catch((error) => {
+                        throw error;
+                    })
+            });
         }
     }
 </script>
@@ -78,6 +98,16 @@
         text-align: center;
         color: #2c3e50;
         background-color: lightgray;
+    }
+
+    #mainSection {
+        float: top;
+        width: 100%;
+    }
+
+    #mainList {
+        width: 75%;
+        float: top;
     }
 
     #buttonBar {
