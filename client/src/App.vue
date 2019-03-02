@@ -5,29 +5,33 @@
             <div id="listings">
                 <ListingComponent id="mainList" v-for="listing in paginatedData" :entry="listing"/>
             </div>
-        </div>
-        <div id="buttonBar">
-            <button v-on:click="prevPage">Prev Page</button>
-            <span id="current">{{pageNumber}}</span>
-            <button v-on:click="nextPage">Next Page</button>
+            <Navigation :page-number="pageNumber"/>
         </div>
     </div>
 </template>
 
 <script>
     import TopBar from './components/TopBar.vue'
+    import Navigation from './components/Navigation.vue'
     import ListingComponent from './components/ListingComponent.vue'
     import axios from 'axios'
 
     import { eventBus } from "./main"
+    import BButton from "bootstrap-vue/src/components/button/button";
+    import BButtonGroup from "bootstrap-vue/src/components/button-group/button-group";
+    import BNavText from "bootstrap-vue/src/components/nav/nav-text";
 
     const API_URL = 'http://localhost:3000/listings/';
 
     export default {
         name: 'app',
         components: {
+            BNavText,
+            BButtonGroup,
+            BButton,
             TopBar,
-            ListingComponent
+            ListingComponent,
+            Navigation
         },
         data() {
             return {
@@ -41,29 +45,39 @@
             paginatedData() {
                 const start = this.pageNumber * this.size,
                     end = start + this.size;
-                return this.listings.reverse().slice(start, end);
+                return this.listings.reverse().slice(start,  end);
             }
         },
         methods: {
             nextPage() {
                 this.pageNumber++;
-                console.log(this.pageNumber);
             },
             prevPage() {
                 if (this.pageNumber > 1) {
                     this.pageNumber--;
                 }
-                console.log(this.pageNumber);
             },
             pageCount() {
                 let l = this.listings.length,
                     s = this.size;
                 return Math.ceil(l/s);
             },
-            //gets listings from the backend and sets the pages lsitings to the response
+            //gets listings from the backend and sets the pages listings to the response
             getListings() {
                 axios
                     .get(API_URL)
+                    .then((response) => {
+                        this.listings = response.data;
+                    })
+                    .catch((error) => {
+                        throw error;
+                    })
+            },
+            getMatchingListings(searchTerm) {
+                axios
+                    .post(API_URL, {
+                        title: searchTerm
+                    })
                     .then((response) => {
                         this.listings = response.data;
                     })
@@ -76,18 +90,11 @@
             this.getListings();
         },
         created() {
-            eventBus.$on('newSearch', (searchTerm) => {
-                axios
-                    .post(API_URL, {
-                        title: searchTerm
-                    })
-                    .then((response) => {
-                        this.listings = response.data;
-                    })
-                    .catch((error) => {
-                        throw error;
-                    })
-            });
+            eventBus.$on('newSearch', (searchTerm) => this.getMatchingListings(searchTerm));
+
+            eventBus.$on('nextPage', () => this.nextPage());
+
+            eventBus.$on('prevPage', () => this.prevPage());
         }
     }
 </script>
@@ -102,20 +109,26 @@
         background-color: lightgray;
     }
 
-    #mainSection {
-        float: top;
-        width: 100%;
-    }
-
-    #mainList {
-        width: 75%;
-        float: top;
+    .bottomSearch {
+        margin-top: 30px;
     }
 
     #buttonBar {
         background-color: dimgray;
+        display: inline-block;
+        float: top;
     }
-    
+
+    .pageButtons {
+        margin: 10px 10px;
+    }
+
+    #navSide {
+        background-color: dimgray;
+        display: inline-block;
+        float: right;
+    }
+
     button {
         text-decoration: none;
         text-align: center;
@@ -124,9 +137,22 @@
         color: black;
         background-color: dimgray;
     }
+    #mainSection {
+        background-color: dimgray;
+        float: top;
+        width: 100%;
+    }
+
+    #mainList {
+        background-color: lightgray;
+        width: 70%;
+        display: inline-block;
+        float: left;
+    }
 
     body, html {
         margin: 0;
         padding: 0;
+        background-color: dimgray;
     }
 </style>

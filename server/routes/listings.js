@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var db = require('../database');
 
+//gets all listings from db
 router.get('/', function (req, res) {
     db.getDB().collection('posts').find({}).toArray(function (err, result) {
         if (err) throw err;
@@ -9,6 +10,7 @@ router.get('/', function (req, res) {
     })
 });
 
+//gets listings from db that contain the specified string
 router.post('/', function (req, res) {
     var query = {title: {$regex: req.body.title, $options: "$i"}};
     db.getDB().collection('posts').find(query).toArray(function (err, result) {
