@@ -1,9 +1,9 @@
 var rp = require('request-promise');
 var $ = require('cheerio');
 var url = 'https://www.reddit.com/r/Watchexchange/new/';
-
 var db = require('../database');
 
+//gets necessary information from listing page and returns that through a promise
 function getInfo(title, href) {
     var obj = {title : title, link : href, price : ""};
     return new Promise((resolve, reject) => {
@@ -19,6 +19,7 @@ function getInfo(title, href) {
     })
 }
 
+//scrapes reddit new page for listings and gets all information
 function scrape() {
     let title, href = "";
     db.connectToServer(function () {

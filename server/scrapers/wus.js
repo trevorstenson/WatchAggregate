@@ -4,6 +4,7 @@ var url = 'https://forums.watchuseek.com/f29/i1.html';
 
 var db = require('../database');
 
+//gets necessary information from listing page and returns that through a promise
 function getInfo(title, href) {
     let obj = {title: title, link: href, price: ""};
     return new Promise((resolve, reject) => {
@@ -19,6 +20,7 @@ function getInfo(title, href) {
     })
 }
 
+//scrapes wus forum new page for listings and gets all information
 function scrape() {
     let title, href = "";
     db.connectToServer(function () {

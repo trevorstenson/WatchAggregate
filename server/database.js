@@ -6,6 +6,7 @@ var _db;
 
 module.exports = {
 
+    //insert a new sale listing into the database
     addListing: function (obj) {
         if (_db) {
             _db.collection('posts').updateOne(
@@ -15,6 +16,7 @@ module.exports = {
         }
     },
 
+    //connects to the db and return the db object
     connectToServer: function (callback) {
         if (_db) {
             console.warn('Trying to connect again!');
@@ -27,6 +29,7 @@ module.exports = {
         });
     },
 
+    //gets the db object
     getDB: function () {
         return _db;
     }

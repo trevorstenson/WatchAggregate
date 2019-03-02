@@ -37,6 +37,7 @@
             }
         },
         computed: {
+            //returns the correct list of data from the listings array for whichever page you are currently on
             paginatedData() {
                 const start = this.pageNumber * this.size,
                     end = start + this.size;
@@ -59,6 +60,7 @@
                     s = this.size;
                 return Math.ceil(l/s);
             },
+            //gets listings from the backend and sets the pages lsitings to the response
             getListings() {
                 axios
                     .get(API_URL)
