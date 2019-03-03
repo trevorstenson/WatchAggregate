@@ -16,7 +16,7 @@
     import ListingComponent from './components/ListingComponent.vue'
     import axios from 'axios'
 
-    import { eventBus } from "./main"
+    import {eventBus} from "./main"
     import BButton from "bootstrap-vue/src/components/button/button";
     import BButtonGroup from "bootstrap-vue/src/components/button-group/button-group";
     import BNavText from "bootstrap-vue/src/components/nav/nav-text";
@@ -45,7 +45,11 @@
             paginatedData() {
                 const start = this.pageNumber * this.size,
                     end = start + this.size;
-                return this.listings.reverse().slice(start,  end);
+                if (this.listings.length > this.side) {
+                    return this.listings.slice(start, end);
+                } else {
+                    return this.listings;
+                }
             }
         },
         methods: {
@@ -62,16 +66,27 @@
             pageCount() {
                 let l = this.listings.length,
                     s = this.size;
-                return Math.floor(l/s);
+                return Math.floor(l / s);
             },
             getMatchingListings(searchTerm, sortMethod) {
                 axios
                     .post(API_URL, {
-                        title: searchTerm,
-                        sortType: sortMethod
+                        title: searchTerm
                     })
                     .then((response) => {
-                        this.listings = response.data;
+                        console.log(response.data);
+                        if (sortMethod === 1) this.listings = response.data;
+                        if (sortMethod === 2) {
+                            console.log('PRICE');
+                            this.listings = response.data;
+                            this.listings.sort(function (a, b) {
+                                let one = parseInt(a.price.replace(',',''));
+                                let two = parseInt(b.price.replace(',',''));
+                                if (one < two) return -1;
+                                if (one > two) return 1;
+                                return 0;
+                            });
+                        }
                     })
                     .catch((error) => {
                         throw error;

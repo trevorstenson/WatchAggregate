@@ -10,7 +10,7 @@ function getInfo(title, href) {
         rp(href)
             .then(function (html) {
                 let m = $.load(html).text().match(/\$((\d,?){1,8})/g);
-                if (m) obj.price = m[0].replace('\$', '');
+                if (m) obj.price = m[0].replace('$','');
                 resolve(obj);
             })
             .catch(function (error) {

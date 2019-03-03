@@ -43,8 +43,10 @@
             }
         },
         methods: {
+            newSort: function () {
+                eventBus.$emit('newSort', this.sortMethod);
+            },
             newSearch: function () {
-                console.log(this.sortMethod);
                 eventBus.$emit('newSearch', this.searchTerm, this.sortMethod)
             },
             nextPage: function () {

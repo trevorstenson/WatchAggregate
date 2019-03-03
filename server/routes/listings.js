@@ -12,22 +12,13 @@ router.get('/', function (req, res) {
 
 //gets listings from db that contain the specified string
 router.post('/', function (req, res) {
-    var query = {title: {$regex: req.body.title, $options: "$i"}};
+    console.log(req.body.title);
+    let query = {'title': {$regex: req.body.title, $options: 'i'}};
     db.getDB().collection('posts').find(query).toArray(function (err, result) {
         if (err) throw err;
         res.setHeader('Content-Type', 'application/json');
-        if (req.body.sortType === 1) {
-            res.send(result);
-        } else if (req.body.sortType === 2) {
-            res.send(result.sort(function (a, b) {
-                    let one = a.price;
-                    let two = b.price;
-                    if (one < two) return 1;
-                    if (one > two) return -1;
-                    return 0;
-                })
-            )
-        }
+        result.reverse();
+        res.send(result);
     });
 });
 
