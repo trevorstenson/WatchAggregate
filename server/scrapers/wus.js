@@ -26,7 +26,6 @@ function scrape() {
     db.connectToServer(function () {
         rp(url)
             .then(function (html) {
-                console.log('successfully scraped');
                 $("div[class='rating0 nonsticky']", html).each(function () {
                     href = $(this).find("a[class='title']").attr('href');
                     title = $(this).find("a[class='title']").text();

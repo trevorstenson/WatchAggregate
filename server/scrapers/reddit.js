@@ -25,7 +25,6 @@ function scrape() {
     db.connectToServer(function () {
         rp(url)
             .then(function (html) {
-                console.log('successfully scraped');
                 $("div[class~='Post']", html).each(function () {
                     href = 'https://www.reddit.com' + $(this).find("a[data-click-id='comments']").attr('href');
                     title = $(this).find("h2").text();
