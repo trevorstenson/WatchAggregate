@@ -50,7 +50,9 @@
         },
         methods: {
             nextPage() {
-                this.pageNumber++;
+                if (this.pageNumber < this.pageCount()) {
+                    this.pageNumber++;
+                }
             },
             prevPage() {
                 if (this.pageNumber > 1) {
@@ -60,23 +62,13 @@
             pageCount() {
                 let l = this.listings.length,
                     s = this.size;
-                return Math.ceil(l/s);
+                return Math.floor(l/s);
             },
-            //gets listings from the backend and sets the pages listings to the response
-            getListings() {
-                axios
-                    .get(API_URL)
-                    .then((response) => {
-                        this.listings = response.data;
-                    })
-                    .catch((error) => {
-                        throw error;
-                    })
-            },
-            getMatchingListings(searchTerm) {
+            getMatchingListings(searchTerm, sortMethod) {
                 axios
                     .post(API_URL, {
-                        title: searchTerm
+                        title: searchTerm,
+                        sortType: sortMethod
                     })
                     .then((response) => {
                         this.listings = response.data;
@@ -87,10 +79,10 @@
             }
         },
         mounted() {
-            this.getListings();
+            this.getMatchingListings("", 1);
         },
         created() {
-            eventBus.$on('newSearch', (searchTerm) => this.getMatchingListings(searchTerm));
+            eventBus.$on('newSearch', (searchTerm, sortMethod) => this.getMatchingListings(searchTerm, sortMethod));
 
             eventBus.$on('nextPage', () => this.nextPage());
 
@@ -109,34 +101,6 @@
         background-color: lightgray;
     }
 
-    .bottomSearch {
-        margin-top: 30px;
-    }
-
-    #buttonBar {
-        background-color: dimgray;
-        display: inline-block;
-        float: top;
-    }
-
-    .pageButtons {
-        margin: 10px 10px;
-    }
-
-    #navSide {
-        background-color: dimgray;
-        display: inline-block;
-        float: right;
-    }
-
-    button {
-        text-decoration: none;
-        text-align: center;
-        padding: 10px 20px;
-        border: none;
-        color: black;
-        background-color: dimgray;
-    }
     #mainSection {
         background-color: dimgray;
         float: top;

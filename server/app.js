@@ -7,7 +7,6 @@ var listingsRouter = require('./routes/listings');
 
 var app = express();
 
-
 //enable cors for testing on localhost
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

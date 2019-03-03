@@ -1,6 +1,6 @@
 var mongo = require('mongodb');
 var MongoClient = mongo.MongoClient;
-var url = "mongodb://localhost:27017/watches1";
+var url = "mongodb://localhost:27017/watches2";
 
 var _db;
 
@@ -11,7 +11,7 @@ module.exports = {
         if (_db) {
             _db.collection('posts').updateOne(
                 {title: obj.title},
-                {$set: {'link': obj.link, 'price': obj.price}},
+                {$set: {'link': obj.link, 'price': parseInt(obj.price)}},
                 {upsert: true})
         }
     },
@@ -24,7 +24,7 @@ module.exports = {
         }
 
         MongoClient.connect(url, function (err, db) {
-            _db = db.db("watches1");
+            _db = db.db("watches2");
             return callback(null, _db);
         });
     },

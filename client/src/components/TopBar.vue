@@ -19,22 +19,12 @@
     import BNavbarNav from "bootstrap-vue/src/components/navbar/navbar-nav";
     import BButton from "bootstrap-vue/src/components/button/button";
 
-    import { eventBus } from "../main"
-
     export default {
         name: "TopBar",
         components: {BButton, BNavbarNav, BNavbarToggle, BNavText, BNavbarBrand, BNavbar},
         data() {
             return {
                 searchTerm: ""
-            }
-        },
-        methods: {
-            newSearch: function () {
-                eventBus.$emit('newSearch', this.searchTerm);
-            },
-            onSubmit: function () {
-
             }
         }
     }
