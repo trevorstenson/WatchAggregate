@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var scrapers = require('./scrapers/control');
-var db = require('./database');
+const path = require('path');
 
 var listingsRouter = require('./routes/listings');
 
@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use('/listings', listingsRouter);
+
+app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/', function (req, res) {
     res.send(JSON.stringify('get worked'))

@@ -1,0 +1,25 @@
+{
+  "name": "watchaggregate",
+  "version": "1.0.0",
+  "description": "An Express back-end API + Vue front-end that provides aggregated information regarding used watch sales from multiple online sites in a uniform manner.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "build-client": "cd ./client && npm install && npm run build",
+    "install-server": "cd ./server && npm install"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "cacheDirectories": ["client/node_modules", "server/node_modules"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trevorstenson/WatchAggregate.git"
+  },
+  "author": "Trevor Stenson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trevorstenson/WatchAggregate/issues"
+  },
+  "homepage": "https://github.com/trevorstenson/WatchAggregate#readme"
+}

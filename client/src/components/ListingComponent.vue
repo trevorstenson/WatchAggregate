@@ -25,7 +25,7 @@
         border-right: 2px solid gray;
         padding-bottom: 2px;
         padding-top: 2px;
-        font-size: 12px;
+        font-size: 18px;
     }
 
     .title {

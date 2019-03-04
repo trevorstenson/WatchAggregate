@@ -1,13 +1,13 @@
 <template>
-    <div id="buttonBar" data-spy="affix" data-offset-top="200px">
-        <b-form-select v-model="sortMethod" :options="options" v-on:change="newSearch" size="sm" class="mt-2"/>
-        <b-nav-form @submit.prevent="onSubmit">
-            <b-form-input v-model="searchTerm" size="sm" class="mr-sm-1 bottomSearch" type="text" placeholder="Find Watches"/>
-            <b-button v-on:click="newSearch" size="sm" class="bottomSearch" type="submit" variant="dark">Search</b-button>
+    <div id="buttonBar">
+        <b-form-select v-model="sortMethod" :options="options" v-on:change="newSearch" size="lg" class="mt-3"/>
+        <b-nav-form @submit.prevent="onSubmit" class="mt-3 bottomSearch">
+            <b-form-input v-model="searchTerm" size="lg" class="mr-sm-1" type="text" placeholder="Find Watches"/>
+            <b-button v-on:click="newSearch" size="lg" type="submit" variant="dark">Search</b-button>
         </b-nav-form>
-        <b-button class="pageButtons" size="sm" variant="dark" v-on:click="prevPage">Prev</b-button>
-        <b-nav-text variant="dark" id="pageNumberText">{{pageNumber}}</b-nav-text>
-        <b-button class="pageButtons" size="sm" variant="dark" v-on:click="nextPage">Next</b-button>
+        <b-button class="pageButtons" size="lg" variant="dark" v-on:click="prevPage">Prev</b-button>
+        <b-nav-text variant="dark" id="pageNumberText" class="mt-3">{{pageNumber}}</b-nav-text>
+        <b-button class="pageButtons" size="lg" variant="dark" v-on:click="nextPage">Next</b-button>
     </div>
 </template>
 
@@ -75,7 +75,7 @@
     }
 
     #pageNumberText {
-        font-size: 20px;
+        font-size: 30px;
         color: darkblue;
     }
 

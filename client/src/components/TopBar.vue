@@ -1,11 +1,11 @@
 <template>
     <div id="navbar">
-        <b-navbar toggleable="sm" type="dark" variant="secondary">
+        <b-navbar toggleable="sm" type="dark" variant="secondary" size="lg">
             <b-navbar-brand href="." id="bigTitle">Watch Aggregator</b-navbar-brand>
-            <b-nav-text class="small centerText">Browse online used watch listings from multiple sources efficiently</b-nav-text>
+            <b-nav-text class="large centerText">Browse online used watch listings from multiple sources efficiently</b-nav-text>
             <b-navbar-toggle target="nav_collapse"/>
                 <b-navbar-nav class="ml-auto">
-                    <b-button size="sm" class="my-2 my-sm-0">About</b-button>
+                    <b-button size="lg" class="my-2 my-sm-0">About</b-button>
                 </b-navbar-nav>
         </b-navbar>
     </div>

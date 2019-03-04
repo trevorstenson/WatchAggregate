@@ -17,11 +17,8 @@
     import axios from 'axios'
 
     import {eventBus} from "./main"
-    import BButton from "bootstrap-vue/src/components/button/button";
-    import BButtonGroup from "bootstrap-vue/src/components/button-group/button-group";
-    import BNavText from "bootstrap-vue/src/components/nav/nav-text";
 
-    const API_URL = 'http://localhost:3000/listings/';
+    const API_URL = 'https://watch-aggregator.herokuapp.com/';
 
     export default {
         name: 'app',
@@ -34,7 +31,7 @@
             return {
                 listings: [],
                 pageNumber: 1,
-                size: 30
+                size: 50
             }
         },
         computed: {
