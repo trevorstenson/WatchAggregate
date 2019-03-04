@@ -19,8 +19,6 @@ app.use(bodyParser.json());
 
 app.use('/listings', listingsRouter);
 
-app.use(express.static(path.join(__dirname, '../../client/dist')));
-
 app.get('/', function (req, res) {
     res.send(JSON.stringify('get worked'))
 });

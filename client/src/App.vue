@@ -18,7 +18,7 @@
 
     import {eventBus} from "./main"
 
-    const API_URL = 'https://watch-aggregator.herokuapp.com/';
+    const API_URL = 'http://localhost:3000/listings/';
 
     export default {
         name: 'app',
@@ -31,7 +31,7 @@
             return {
                 listings: [],
                 pageNumber: 1,
-                size: 50
+                size: 30
             }
         },
         computed: {
