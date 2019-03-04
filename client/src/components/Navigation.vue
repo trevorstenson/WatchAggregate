@@ -43,9 +43,6 @@
             }
         },
         methods: {
-            newSort: function () {
-                eventBus.$emit('newSort', this.sortMethod);
-            },
             newSearch: function () {
                 eventBus.$emit('newSearch', this.searchTerm, this.sortMethod)
             },

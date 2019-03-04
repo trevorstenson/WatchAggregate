@@ -45,7 +45,7 @@
             paginatedData() {
                 const start = this.pageNumber * this.size,
                     end = start + this.size;
-                if (this.listings.length > this.side) {
+                if (this.listings.length > this.size) {
                     return this.listings.slice(start, end);
                 } else {
                     return this.listings;
@@ -74,7 +74,6 @@
                         title: searchTerm
                     })
                     .then((response) => {
-                        console.log(response.data);
                         if (sortMethod === 1) this.listings = response.data;
                         if (sortMethod === 2) {
                             console.log('PRICE');
