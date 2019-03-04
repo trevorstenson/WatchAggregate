@@ -26,9 +26,6 @@
     export default {
         name: 'app',
         components: {
-            BNavText,
-            BButtonGroup,
-            BButton,
             TopBar,
             ListingComponent,
             Navigation
@@ -43,7 +40,7 @@
         computed: {
             //returns the correct list of data from the listings array for whichever page you are currently on
             paginatedData() {
-                const start = this.pageNumber * this.size,
+                const start = (this.pageNumber - 1) * this.size,
                     end = start + this.size;
                 if (this.listings.length > this.size) {
                     return this.listings.slice(start, end);
@@ -76,7 +73,6 @@
                     .then((response) => {
                         if (sortMethod === 1) this.listings = response.data;
                         if (sortMethod === 2) {
-                            console.log('PRICE');
                             this.listings = response.data;
                             this.listings.sort(function (a, b) {
                                 let one = parseInt(a.price.replace(',',''));
